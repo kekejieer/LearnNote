@@ -1,4 +1,4 @@
-#pyqt选择从窗口液面文件夹打开
+#pyqt选择从窗口页面选中文件夹/图片打开
 filename=QFileDialog.getExistingDirectory(self,"选取文件夹","./")                   #以文件夹形式打开          
 filename, _ = QFileDialog.getOpenFileName(self, "JPG 文件，*jpg，PNG 文件，*png")    #打开图片
  if filename:
