@@ -1,0 +1,12 @@
+#self.List_PathName  是QListView框
+
+
+self.abs_path_list=['a','b','c']           #列表
+slm=QStringListModel()                     #创建数据模型
+slm.setStringList(self.abs_path_list)      #QStringListModel 的 setStringList() 函数可以初始化数据模型的字符串列表的内容， 
+self.List_PathName.setModel(slm)           #为listView设置数据模型
+self.List_PathName.clicked.connect(self.clickfilename)       #点击某行操作
+
+def clickfilename(self,qModelIndex):
+    filename=self.abs_path+"\\"+self.abs_path_list[qModelIndex.row()]   #返回某行索引，从而得到该行名字名称
+    self.Nextpic(filename)
