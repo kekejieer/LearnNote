@@ -1,0 +1,31 @@
+#1.需将QLabel的尺寸固定，不然QLabel会随着图片的大小而发生变化
+self.label.setFixedWidth(91)         #固定宽度
+self.label.setFixedHeight(211)       #固定高度
+self.label.setFrameShape(QtWidgets.QFrame.Box)
+self.label.setFrameShadow(QtWidgets.QFrame.Raised)    
+self.label.setLineWidth(2)             #边框线宽
+self.label.setStyleSheet('background-color: rgb(255, 255, 255)')    #背景颜色
+
+#图片展示
+#二维图片展示
+if len(pic.shape) == 2:
+    self.QtImg = QtGui.QImage(pic.data,
+                                pic.shape[1],
+                                pic.shape[0],
+                                pic.shape[1],
+                                QtGui.QImage.Format_Indexed8)
+    self.label.setPixmap(QtGui.QPixmap.fromImage(self.QtImg))
+
+#三维图片展示
+ if len(pic.shape) == 3:
+    width = self.width()
+    height = self.height()
+    frame = cv.resize(pic, (width, height))
+    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    self.QtImg = QtGui.QImage(frame.data,
+                                frame.shape[1],
+                                frame.shape[0],
+                                frame.shape[1]*3,
+                                QtGui.QImage.Format_RGB888)
+    labelList.setPixmap(QtGui.QPixmap.fromImage(self.QtImg))
+    labelList.setScaledContents(True)  # 让图片自适应label大小-基本没什么用
