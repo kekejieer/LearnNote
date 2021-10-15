@@ -1,0 +1,15 @@
+python 报错代码'numpy.ndarray' object has no attribute 'QImage'
+文件定位：
+    H, S, V = cv.split(img_HSV)
+    self.showpic(S)
+    def showpic(self,pic)
+        self.QtImg = QtGui.QImage(pic.data,
+                pic.shape[1],
+                pic.shape[0],
+                pic.shape[1],
+                pic.QImage.Format_Indexed8)
+        labelList.setPixmap(QtGui.QPixmap.fromImage(self.QtImg))
+修正：
+    H, self.S, V = cv.split(img_HSV)
+    self.showpic(self.S)
+    #添加了self后可运行，后来又改为原来的不加self，还是可以运行了，原因未知。
