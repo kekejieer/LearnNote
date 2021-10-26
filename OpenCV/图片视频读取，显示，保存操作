@@ -1,0 +1,58 @@
+#1.图片
+#读入图片
+# -*- coding: utf-8 -*-
+import numpy as np
+import cv2
+#img = cv2.imread('7.jpg',0)  #opencv不会提醒你路径的对错，文件夹有中文路径时不对
+filename = 'E:\ALG\项目\流水线\python\SEGSU\pic\\7.jpg'
+
+img  = cv2.imdecode(np.fromfile((filename.replace("\\", "//")),
+                                dtype=np.uint8), cv2.IMREAD_COLOR)
+#显示图片
+cv2.namedWindow('image', cv2.WINDOW_NORMAL) #建立窗口，也可以不建立
+cv2.imshow('image',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()   #删除任意窗口或指定窗口
+#保存图片
+cv2.imwrite('messigray.png',img)
+#总结
+
+
+"""
+cv2.imdecode()函数从指定的内存缓存中读取数据，并把数据转换(解码)成图像格式;
+主要用于从网络传输数据中恢复出图像。
+cv2.imencode()函数是将图片格式转换(编码)成流数据，赋值到内存缓存中;
+主要用于图像数据格式的压缩，方便网络传输。
+
+
+image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+img_encode = cv2.imencode('.jpg', img)[1]
+
+"""
+# 2.视频（复制）
+# -*- coding: utf-8 -*-
+import numpy as np
+import cv2
+
+cap = cv2.VideoCapture(0)
+while(True):
+    # Capture frame-by-frame
+    ret, frame = cap.read()  #返回布尔值
+
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Display the resulting frame
+    cv2.imshow('frame',gray)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# When everything done, release the capture
+cap.release()
+cv2.destroyAllWindows()
+"""
+使用cap.isOpened()，来检查是否成功初始化
+以使用函数cap.get(propId) 来获得视频的一些参数信息，propId数字表各属性
+ cv2.waiKey() 设置播放速度
+"""
