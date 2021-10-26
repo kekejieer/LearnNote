@@ -1,0 +1,57 @@
+"""
+参考
+https://blog.csdn.net/weixin_36670529/article/details/104001980
+
+openCV绘图
+CV2.line()  线
+cv2.circle()  圆
+cv2.rectangle()  矩阵
+cv2.ellipse() 椭圆
+cv2.putText() 文本
+
+img：图像，通常用img.copy()
+color：形状的颜色。（255,0,0）蓝色。img为三通道图形才能显示颜色
+thickness：线条的粗细。如果给一个闭合图形设置为-1，那么这个图形
+就会被填充。默认值是1.
+linetype：线条的类型，8 连接，抗锯齿等。默认情况是8 连接。cv2.LINE_AA
+为抗锯齿，这样看起来会非常平滑。
+"""
+
+
+import numpy as np
+import cv2
+
+"""
+注意：若要在图片中画线，则一般图片以垂直线为x,水平为y。。但是在cv中，则相反，
+因此需要调换x和y坐标。
+"""
+
+# 画线 知道起点和终点
+img=np.zeros((512,512,3), np.uint8) #创造一个黑色三通道图像
+
+cv2.line(img,(0,0),(511,511),(255,0,0),5)
+cv2.line(image, start_point, end_point, color, thickness)
+
+#画矩形  左上角顶点和右下角顶点
+cv2.rectangle(img,(384,0),(510,128),(0,255,0),3)
+cv2.rectangle(image, start_point, end_point, color, thickness)
+
+#画圆或点，半径小就为点
+cv2.circle(img,(447,63), 63, (0,0,255), -1)
+cv2.circle(image, center_coordinates, radius, color, thickness)
+
+#画椭圆 中心点、（长轴，短轴），椭圆旋转角度，椭圆弧的起始角度，椭圆弧终点角度，
+#颜色，线条粗细，类型（可选），中心坐标点小数位数和轴值（可选）
+v2.ellipse(img,(256,256),(100,50),0,0,180,255,-1)
+cv2.ellipse(image, centerCoordinates, axesLength, angle, 
+       startAngle,endAngle, color [, thickness[, lineType[, shift]]])
+
+#绘制多边形，和line类似
+pts = np.array([[100, 5],  [500, 100], [600, 200], [200, 300]], np.int32)
+# 顶点个数：4，矩阵变成4*1*2维
+pts = pts.reshape((-1, 1, 2))
+cv2.polylines(img, [pts], True, (0, 0, 255), 10)
+
+#绘制的文字，位置，字体类型，字体大小，颜色，线条
+font=cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(img,'OpenCV',(10,500), font, 4,(255,255,255),2)
