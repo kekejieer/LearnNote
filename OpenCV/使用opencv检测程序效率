@@ -1,0 +1,46 @@
+#检测程序运行时间,也可以用time.time()
+import cv2
+import numpy as np
+
+e1 = cv2.getTickCount()  #记录开始时间
+for i in range(1000):
+    a=i
+e2 = cv2.getTickCount()  #记录结束时间
+t = (e2 - e1)/cv2.getTickFrequency()
+print(t)
+#使用函数cv2.useOptimized()查看代码优化是否开始
+#使用函数cv2.setUseOptimized() 来开启优化
+print(cv2.useOptimized())  #true表示已经开启
+cv2.setUseOptimized(False) #关闭优化
+
+"""
+1. 尽量避免使用循环，尤其双层三层循环，它们天生就是非常慢的。
+2. 算法中尽量使用向量操作，因为Numpy 和OpenCV 都对向量操作进行
+了优化。
+3. 利用高速缓存一致性
+4. 没有必要的话就不要复制数组。使用视图来代替复制。数组复制是非常浪
+费资源的
+"""
+
+#python深拷贝、浅拷贝与视图
+#浅拷贝:不同的数组对象分享同一个数据，两个变量共享同一个地址
+#深拷贝:创建一个新的地址，复制一份新的数据
+#view （）操作在不对某一个数组进行复制的情况下创建一个同
+   # 样指向该数据的视图，是一个新的对象，会和原来的数组共享数据，不是同一个地址
+X=np.array([3,5,6,7])
+Y=X        #直接赋值，浅拷贝
+Z=X[:]
+H= X.copy()
+A = X.view() #d是c的视图
+print(id(X))   #2349234471616
+print(id(Y))   #2349234471616
+print(id(Z))   #2476568049024
+print(id(H))   #1372174491136
+print(id(A))   #2476569038160
+
+
+
+
+
+
+
