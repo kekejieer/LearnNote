@@ -1,0 +1,9 @@
+ # 解决中文显示问题
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+title=['原始图片',u'B通道去标签',u'Canny边缘检测']
+for i in range(3):
+    plt.subplot(1,3,i+1),plt.imshow(img[i])
+    plt.title(title[i])
+    plt.xticks([]),plt.yticks([])
+plt.show()
